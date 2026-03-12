@@ -5,12 +5,20 @@
 package ex2.gestors;
 
 import ex2.model.Estacio;
+import ex2.model.Pista;
+
+import javax.xml.bind.*;
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import com.google.gson.*;
 
 /**
  *
- * @author joan
+ * @author Antonio Fernández Romero
  */
 public class GestorEstacio {
+
 
     /**
      * Retorna un objecte de classe Estacio a partir d'un fitxer XML
@@ -21,8 +29,19 @@ public class GestorEstacio {
      * fitxer
      */
     public Estacio llegirFitxerXML(String nomFitxer) throws GestorEstacioException {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+
+
+        try {
+            File originFile = new File(nomFitxer);
+            JAXBContext jaxbContext = JAXBContext.newInstance(Estacio.class);
+            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+
+            return (Estacio) jaxbUnmarshaller.unmarshal(originFile);
+
+
+        }catch (Exception ex){
+            throw new GestorEstacioException("No s'ha pogut llegir l'arxiu Estacio", ex);
+        }
     }
 
     /**
@@ -34,8 +53,21 @@ public class GestorEstacio {
      * fitxer
      */
     public void gravarFitxerXML(String nomFitxer, Estacio estacio) throws GestorEstacioException {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+
+        try {
+            File destinyFile = new File(nomFitxer);
+
+            JAXBContext jaxbContext = JAXBContext.newInstance(Estacio.class);
+            Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
+            jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+            jaxbMarshaller.marshal(estacio, destinyFile);
+
+
+
+
+        }catch (JAXBException ex){
+            throw new GestorEstacioException("No s'ha pogut gravar a l'arxiu Estacio", ex);
+        }
     }
 
     /**
@@ -47,8 +79,15 @@ public class GestorEstacio {
      * fitxer
      */
     public Estacio llegirFitxerJSON(String nomFitxer) throws GestorEstacioException {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+        try {
+            FileReader fileReader = new FileReader(nomFitxer);
+            Gson gson = new Gson();
+
+            return gson.fromJson(fileReader, Estacio.class);
+
+        }catch(FileNotFoundException ex){
+            throw new GestorEstacioException("No s'ha pogut llegir l'arxiu", ex);
+        }
     }
 
     /**
@@ -59,9 +98,18 @@ public class GestorEstacio {
      * @throws ex2.gestors.GestorEstacioException si no s'ha pogut escriure el
      * fitxer
      */
-    public void gravarFitxerJSON(String nomFitxer, Estacio estacio) throws GestorEstacioException {
-        //TODO
-        throw new UnsupportedOperationException("Mètode no implementat");
+    public void gravarFitxerJSON(String nomFitxer, Estacio estacio) throws GestorEstacioException, FileNotFoundException {
+
+        try(FileWriter fileWriter = new FileWriter(nomFitxer)) {
+
+            Gson gson = new Gson();
+            gson.toJson(estacio, fileWriter);
+
+
+        }catch(IOException ex){
+            throw new GestorEstacioException("No s'ha pogut gravar l'arxiu", ex);
+        }
+
     }
 
 }

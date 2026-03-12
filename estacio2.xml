@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<estacio  id="ST-001">
+<estacio id="ST-001">
     <nom>Neu Gran</nom>
     <comarca>Cerdanya</comarca>
     <web>https://www.neugran.cat</web>
     <altitud-maxima>2535</altitud-maxima>
     <qualificacio>Molt bona</qualificacio>
     <estat-obertura-percentatge>80</estat-obertura-percentatge>
-
-
     <pistes>
         <pista id="A101">
             <nom>La Canal</nom>
@@ -99,6 +97,5 @@
             <gruix-neu>70</gruix-neu>
             <qualitat-neu>Pols</qualitat-neu>
         </pista>
-
     </pistes>
 </estacio>

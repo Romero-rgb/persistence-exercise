@@ -139,6 +139,10 @@ public class Estacio {
      *
      */
     public void actualitzaEstatObertura() {
+        if (pistes.isEmpty()){
+            this.estatObertura = 0;
+            return;
+        }
         int opens = 0;
 
         for (Pista pista : pistes) {

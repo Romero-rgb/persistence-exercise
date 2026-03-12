@@ -6,6 +6,8 @@ package ex2.gestors;
 
 import ex2.model.Estacio;
 import ex2.model.Pista;
+
+import java.io.FileNotFoundException;
 import java.util.List;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.AfterEach;
@@ -147,7 +149,7 @@ public class TestGestor {
      * Test of gravarFitxerJSON method, of class GestorEstacio.
      */
     @Test
-    public void testGravarFitxerJSON() throws GestorEstacioException {
+    public void testGravarFitxerJSON() throws GestorEstacioException, FileNotFoundException {
         System.out.println("gravarFitxerJSON");
         String nomFitxer = "estacio2.json";
         GestorEstacio instance = new GestorEstacio();

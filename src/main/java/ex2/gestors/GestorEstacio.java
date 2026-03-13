@@ -57,16 +57,16 @@ public class GestorEstacio {
         try {
             File destinyFile = new File(nomFitxer);
 
+
             JAXBContext jaxbContext = JAXBContext.newInstance(Estacio.class);
             Marshaller jaxbMarshaller = jaxbContext.createMarshaller();
             jaxbMarshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
             jaxbMarshaller.marshal(estacio, destinyFile);
 
-
-
-
         }catch (JAXBException ex){
             throw new GestorEstacioException("No s'ha pogut gravar a l'arxiu Estacio", ex);
+        } catch (NullPointerException n) {
+            throw new GestorEstacioException("L'arxiu no pot ser nul",n);
         }
     }
 
@@ -79,15 +79,18 @@ public class GestorEstacio {
      * fitxer
      */
     public Estacio llegirFitxerJSON(String nomFitxer) throws GestorEstacioException {
-        try {
-            FileReader fileReader = new FileReader(nomFitxer);
+        try(FileReader fileReader = new FileReader(nomFitxer)) {
+
             Gson gson = new Gson();
 
             return gson.fromJson(fileReader, Estacio.class);
 
         }catch(FileNotFoundException ex){
-            throw new GestorEstacioException("No s'ha pogut llegir l'arxiu", ex);
+                throw new GestorEstacioException("No s'ha pogut llegir l'arxiu", ex);
+        }catch (IOException io){
+            throw new GestorEstacioException("Error a la lectura de l'arxiu", io);
         }
+
     }
 
     /**
@@ -108,6 +111,8 @@ public class GestorEstacio {
 
         }catch(IOException ex){
             throw new GestorEstacioException("No s'ha pogut gravar l'arxiu", ex);
+        } catch (NullPointerException n) {
+            throw new GestorEstacioException("L'arxiu no pot ser nul",n);
         }
 
     }

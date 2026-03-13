@@ -31,12 +31,12 @@ public class Estacio {
     private String web;
 
     @XmlElement(name = "altitud-maxima")
-    @SerializedName("altitud-maxima")
+    @SerializedName("altitud_maxima")
     private int altitudMaxima;
     private String qualificacio;
 
     @XmlElement(name = "estat-obertura-percentatge")
-    @SerializedName("estat-obertura-percentatge")
+    @SerializedName("estat_obertura_percentatge")
     private int estatObertura;
 
     @XmlElementWrapper(name = "pistes")

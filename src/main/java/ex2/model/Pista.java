@@ -30,12 +30,14 @@ public class Pista {
     private String color;
     private boolean oberta;
 
-    @SerializedName("gruix-neu")
+
     @XmlElement(name = "gruix-neu")
+    @SerializedName("gruix_neu")
     private int gruixNeu;
 
-    @SerializedName("qualitat-neu")
+
     @XmlElement(name = "qualitat-neu")
+    @SerializedName("qualitat_neu")
     private String qualitatNeu;
 
     public Pista() {
